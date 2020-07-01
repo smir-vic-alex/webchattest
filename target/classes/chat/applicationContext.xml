@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/jee
+       http://www.springframework.org/schema/jee/spring-jee.xsd">
+
+    <bean id="applicationConfig" class="chat.app.ApplicationConfig">
+        <constructor-arg value="chat/config.properties"/>
+    </bean>
+
+    <bean id="defaultMQConfig" class="chat.queue.DefaultMQConfig">
+        <constructor-arg ref="applicationConfig"/>
+    </bean>
+
+    <bean id="inMqManager" class="chat.queue.in.InMqManager" init-method="init">
+        <constructor-arg ref="defaultMQConfig"/>
+    </bean>
+
+    <bean id="outMqManager" class="chat.queue.out.OutMqManager" init-method="init">
+        <constructor-arg ref="defaultMQConfig"/>
+    </bean>
+
+    <bean id="chatService" class="chat.dao.ChatService"/>
+
+    <bean class="chat.server.ws.VertXServerWS" id="wsVerticle"/>
+
+    <bean class="chat.server.ws.VertxSpringApplication">
+        <constructor-arg ref="wsVerticle"/>
+    </bean>
+
+    <bean class="chat.handlers.WSHandler">
+        <constructor-arg name="chatService" ref="chatService"/>
+        <constructor-arg name="config" ref="applicationConfig"/>
+        <constructor-arg name="inMqManager" ref="inMqManager"/>
+    </bean>
+
+    <context:annotation-config/>
+</beans>
