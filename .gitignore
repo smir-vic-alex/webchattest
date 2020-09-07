@@ -1,0 +1,14 @@
+.idea/
+*.iml
+.idea/**
+.idea
+target/
+target/**
+.gradle/**
+build/*
+db/**
+images/
+.vertx/
+file-uploads/
+logs/output.log
+logs/
