@@ -13,7 +13,7 @@
         <jersey-media-json-jackson.version>2.26</jersey-media-json-jackson.version>
         <jersey-container-servlet.version>2.26</jersey-container-servlet.version>
         <jersey-hk2.version>2.26</jersey-hk2.version>
-        <spring-web.version>4.3.4.RELEASE</spring-web.version>
+        <spring-web.version>6.0.0</spring-web.version>
         <commons-logging.version>1.1</commons-logging.version>
         <jersey-spring4.version>2.26</jersey-spring4.version>
         <servlet-api-2.5.version>6.1.14</servlet-api-2.5.version>
